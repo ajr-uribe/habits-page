@@ -4,16 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Seguimiento de Hábitos - Calendario</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
-    <script>
-      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-      if (!isLoggedIn) {
-        window.location.href = "/index.html";
-      }
-    </script>
-
     <div class="container">
       <div class="header">
         <h1>📅 Seguimiento de Hábitos</h1>
@@ -98,7 +91,12 @@
         </div>
       </div>
     </div>
-
-    <script src="main.js"></script>
+    <script>
+      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+      if (!isLoggedIn) {
+        window.location.href = "/index.html";
+      }
+    </script>
+    <script src="/main.js"></script>
   </body>
 </html>

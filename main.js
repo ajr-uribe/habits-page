@@ -261,6 +261,8 @@ function handlePhotoUpload(event, dateKey, replaceAll = false) {
 }
 
 function showPhotoActions(dateKey) {
+  console.log('showPhotoActions llamado con dateKey:', dateKey);
+  
   const modal = document.getElementById("photoActionsModal");
   const buttonsContainer = document.getElementById("photoActionsButtons");
   buttonsContainer.innerHTML = "";
