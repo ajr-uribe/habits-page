@@ -1,32 +1,70 @@
+:root {
+  --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --container-bg: #ffffff;
+  --text-color: #2d3748;
+  --header-bg: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --card-bg: #ffffff;
+  --calendar-bg: #ffffff;
+  --calendar-text: #374151;
+  --stat-color: #4facfe;
+}
+
+[data-theme="dark"] {
+  --bg-gradient: linear-gradient(135deg, #1a1a1a 0%, #0f2027 100%);
+  --container-bg: #1e293b;
+  --text-color: #f1f5f9;
+  --header-bg: linear-gradient(135deg, #111827 0%, #1e293b 100%);
+  --card-bg: #334155;
+  --calendar-bg: #1e293b;
+  --calendar-text: #f1f5f9;
+  --stat-color: #38bdf8;
+}
+
 body {
   box-sizing: border-box;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--bg-gradient);
   margin: 0;
   padding: 20px;
   min-height: 100vh;
+  color: var(--text-color);
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  background: white;
+  background: var(--container-bg);
   border-radius: 20px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
   overflow: hidden;
 }
 
 .header {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  background: var(--header-bg);
   color: white;
   padding: 30px;
   text-align: center;
+  position: relative;
 }
 
 .header h1 {
   margin: 0;
   font-size: 2.5rem;
   font-weight: 300;
+}
+
+/* Botón de cambio de tema */
+.theme-toggle {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(255,255,255,0.2);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  font-size: 0.9rem;
 }
 
 .month-nav {
@@ -65,10 +103,14 @@ body {
   border-bottom: 1px solid #e2e8f0;
 }
 
+[data-theme="dark"] .habits-config {
+  background: #0f172a;
+  border-bottom: 1px solid #334155;
+}
+
 .habits-title {
   font-size: 1.3rem;
   font-weight: 600;
-  color: #2d3748;
   margin-bottom: 20px;
   text-align: center;
 }
@@ -80,22 +122,16 @@ body {
 }
 
 .habit-item {
-  background: white;
+  background: var(--card-bg);
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   border-left: 4px solid;
 }
 
-.habit-item:nth-child(1) {
-  border-left-color: #10b981;
-}
-.habit-item:nth-child(2) {
-  border-left-color: #3b82f6;
-}
-.habit-item:nth-child(3) {
-  border-left-color: #f59e0b;
-}
+.habit-item:nth-child(1) { border-left-color: #10b981; }
+.habit-item:nth-child(2) { border-left-color: #3b82f6; }
+.habit-item:nth-child(3) { border-left-color: #f59e0b; }
 
 .habit-input {
   width: 100%;
@@ -123,6 +159,9 @@ body {
   border-radius: 12px;
   overflow: hidden;
 }
+[data-theme="dark"] .calendar-grid {
+  background: #334155;
+}
 
 .calendar-header {
   background: #374151;
@@ -134,17 +173,17 @@ body {
 }
 
 .calendar-day {
-  background: white;
+  background: var(--calendar-bg);
   min-height: 120px;
   padding: 8px;
   display: flex;
   flex-direction: column;
   position: relative;
+  color: var(--calendar-text);
 }
 
 .day-number {
   font-weight: 600;
-  color: #374151;
   margin-bottom: 8px;
   font-size: 0.9rem;
 }
@@ -178,7 +217,6 @@ body {
   background: #10b981;
   border-color: #10b981;
 }
-
 .habit-checkbox.checked::after {
   content: "✓";
   position: absolute;
@@ -187,13 +225,6 @@ body {
   color: white;
   font-size: 12px;
   font-weight: bold;
-}
-
-.habit-checkbox:nth-child(1) {
-  border-color: #10b981;
-}
-.habit-checkbox:nth-child(1).checked {
-  background: #10b981;
 }
 
 .photo-section {
@@ -217,7 +248,6 @@ body {
   font-size: 0.8rem;
   transition: all 0.3s ease;
 }
-
 .photo-btn:hover {
   background: #e5e7eb;
   border-color: #6b7280;
@@ -232,10 +262,6 @@ body {
   border: 2px solid #10b981;
 }
 
-.photo-input {
-  display: none;
-}
-
 .stats {
   background: #f8fafc;
   padding: 20px 30px;
@@ -243,9 +269,12 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
 }
+[data-theme="dark"] .stats {
+  background: #0f172a;
+}
 
 .stat-card {
-  background: white;
+  background: var(--card-bg);
   padding: 20px;
   border-radius: 12px;
   text-align: center;
@@ -255,13 +284,13 @@ body {
 .stat-number {
   font-size: 2rem;
   font-weight: bold;
-  color: #4facfe;
+  color: var(--stat-color);
 }
 
 .stat-label {
-  color: #6b7280;
   font-size: 0.9rem;
   margin-top: 5px;
+  color: #6b7280;
 }
 
 .modal {
@@ -304,240 +333,11 @@ body {
   font-size: 1.2rem;
 }
 
-.day-completion {
-  margin-top: 5px;
-  font-size: 0.7rem;
-  color: #6b7280;
-  text-align: center;
-}
-
-.photo-container {
-  position: relative;
-  display: inline-block;
-}
-
-.photo-container .photo-count-badge {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  z-index: 10;
-}
-
-.photo-count-badge {
-  background: #10b981;
-  color: white;
-  border-radius: 12px;
-  padding: 2px 8px;
-  font-size: 0.7rem;
-  font-weight: bold;
-  margin-left: 4px;
-}
-
-.photo-actions-modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 999;
-  justify-content: center;
-  align-items: center;
-}
-
-.photo-actions-content {
-  background: white;
-  border-radius: 16px;
-  padding: 25px;
-  max-width: 400px;
-  width: 90%;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-  max-height: 90vh;
-  overflow-y: auto;
-}
-
-.photo-actions-title {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #2d3748;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.photo-actions-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.photo-action-btn {
-  padding: 15px;
-  border: none;
-  border-radius: 10px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  font-weight: 500;
-}
-
-.photo-action-btn.primary {
-  background: #4facfe;
-  color: white;
-}
-
-.photo-action-btn.primary:hover {
-  background: #3b8fd9;
-  transform: translateY(-2px);
-}
-
-.photo-action-btn.secondary {
-  background: #f3f4f6;
-  color: #374151;
-}
-
-.photo-action-btn.secondary:hover {
-  background: #e5e7eb;
-}
-
-.photo-action-btn.danger {
-  background: #fee2e2;
-  color: #dc2626;
-}
-
-.photo-action-btn.danger:hover {
-  background: #fecaca;
-}
-
-@media (max-width: 1024px) {
-  .calendar-grid {
-    font-size: 0.85rem;
-  }
-
-  .habits-list {
-    grid-template-columns: 1fr;
-  }
-}
-
+/* Responsivo */
 @media (max-width: 768px) {
-  body {
-    padding: 10px;
-  }
-
-  .header h1 {
-    font-size: 1.8rem;
-  }
-
-  .current-month {
-    font-size: 1.2rem;
-    min-width: 150px;
-  }
-
-  .calendar-grid {
-    grid-template-columns: repeat(8, 1fr);
-    font-size: 0.75rem;
-    gap: 2px;
-  }
-
-  .calendar-day {
-    min-height: 80px;
-    padding: 4px 2px;
-  }
-
-  .day-number {
-    font-size: 0.8rem;
-    margin-bottom: 4px;
-  }
-
-  .habit-check {
-    font-size: 0.65rem;
-    gap: 4px;
-  }
-
-  .habit-checkbox {
-    width: 14px;
-    height: 14px;
-  }
-
-  .habit-checkbox.checked::after {
-    font-size: 10px;
-    left: 1px;
-  }
-
-  .photo-btn,
-  .photo-preview {
-    width: 28px;
-    height: 28px;
-  }
-
-  .stats {
-    grid-template-columns: repeat(2, 1fr);
-    padding: 15px;
-    gap: 15px;
-  }
-
-  .stat-number {
-    font-size: 1.5rem;
-  }
-
-  .habits-config {
-    padding: 20px 15px;
-  }
-
-  .calendar-container {
-    padding: 15px;
-  }
-}
-
-@media (max-width: 480px) {
-  .header h1 {
-    font-size: 1.5rem;
-  }
-
-  .current-month {
-    font-size: 1rem;
-    min-width: 120px;
-  }
-
-  .nav-btn {
-    padding: 8px 12px;
-    font-size: 1rem;
-  }
-
-  .calendar-grid {
-    font-size: 0.7rem;
-  }
-
-  .calendar-day {
-    min-height: 70px;
-    padding: 3px 1px;
-  }
-
-  .day-number {
-    font-size: 0.75rem;
-  }
-
-  .habit-check span {
-    display: none;
-  }
-
-  .photo-btn,
-  .photo-preview {
-    width: 24px;
-    height: 24px;
-    font-size: 0.7rem;
-  }
-
-  .modal-content {
-    max-width: 95%;
-    max-height: 80%;
-  }
-
-  .photo-actions-content {
-    max-width: 95%;
-  }
+  body { padding: 10px; }
+  .header h1 { font-size: 1.8rem; }
+  .current-month { font-size: 1.2rem; min-width: 150px; }
+  .calendar-day { min-height: 80px; padding: 4px 2px; }
+  .day-number { font-size: 0.8rem; }
 }

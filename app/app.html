@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Seguimiento de Hábitos - Calendario</title>
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="../style.css" />
   </head>
   <body>
     <script>
@@ -12,11 +12,18 @@
       if (!isLoggedIn) {
         window.location.href = "/index.html";
       }
+
+      // aplicar tema guardado
+      document.documentElement.setAttribute(
+        "data-theme",
+        localStorage.getItem("theme") || "light"
+      );
     </script>
 
     <div class="container">
       <div class="header">
         <h1>📅 Seguimiento de Hábitos</h1>
+        <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
         <div class="month-nav">
           <button class="nav-btn" onclick="changeMonth(-1)">‹</button>
           <div class="current-month" id="currentMonth"></div>
@@ -28,39 +35,19 @@
         <div class="habits-title">Configura tus 3 hábitos</div>
         <div class="habits-list">
           <div class="habit-item">
-            <input
-              type="text"
-              class="habit-input"
-              id="habit1"
-              placeholder="Ej: Ejercicio diario"
-              value="Ejercicio diario"
-            />
+            <input type="text" class="habit-input" id="habit1" value="Ejercicio diario" />
           </div>
           <div class="habit-item">
-            <input
-              type="text"
-              class="habit-input"
-              id="habit2"
-              placeholder="Ej: Leer 30 minutos"
-              value="Leer 30 minutos"
-            />
+            <input type="text" class="habit-input" id="habit2" value="Leer 30 minutos" />
           </div>
           <div class="habit-item">
-            <input
-              type="text"
-              class="habit-input"
-              id="habit3"
-              placeholder="Ej: Meditar"
-              value="Meditar"
-            />
+            <input type="text" class="habit-input" id="habit3" value="Meditar" />
           </div>
         </div>
       </div>
 
       <div class="calendar-container">
-        <div class="calendar-grid" id="calendar">
-          <!-- El calendario se genera dinámicamente -->
-        </div>
+        <div class="calendar-grid" id="calendar"></div>
       </div>
 
       <div class="stats">
@@ -93,12 +80,19 @@
     <div class="photo-actions-modal" id="photoActionsModal">
       <div class="photo-actions-content">
         <div class="photo-actions-title">Gestionar Evidencias</div>
-        <div class="photo-actions-buttons" id="photoActionsButtons">
-          <!-- Botones se generan dinámicamente -->
-        </div>
+        <div class="photo-actions-buttons" id="photoActionsButtons"></div>
       </div>
     </div>
 
-    <script src="/main.js"></script>
+    <script>
+      function toggleTheme() {
+        const current = document.documentElement.getAttribute("data-theme") || "light";
+        const next = current === "light" ? "dark" : "light";
+        document.documentElement.setAttribute("data-theme", next);
+        localStorage.setItem("theme", next);
+      }
+    </script>
+
+    <script src="../main.js"></script>
   </body>
 </html>
