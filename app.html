@@ -10,6 +10,7 @@
     <div class="container">
       <div class="header">
         <h1>📅 Seguimiento de Hábitos</h1>
+        <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
         <div class="month-nav">
           <button class="nav-btn" onclick="changeMonth(-1)">‹</button>
           <div class="current-month" id="currentMonth"></div>
@@ -95,6 +96,19 @@
       const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
       if (!isLoggedIn) {
         window.location.href = "/index.html";
+      }
+
+       // aplicar tema guardado
+      document.documentElement.setAttribute(
+        "data-theme",
+        localStorage.getItem("theme") || "light"
+      );
+
+      function toggleTheme() {
+        const current = document.documentElement.getAttribute("data-theme") || "light";
+        const next = current === "light" ? "dark" : "light";
+        document.documentElement.setAttribute("data-theme", next);
+        localStorage.setItem("theme", next);
       }
     </script>
     <script src="/main.js"></script>
