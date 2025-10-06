@@ -1,139 +1,214 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-	<head>
-		<meta charset="UTF-8" />
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1.0" />
-		<title>Seguimiento de Hábitos - Calendario</title>
-		<link
-			rel="stylesheet"
-			href="styles.css" />
-	</head>
-	<body>
-		<div class="container">
-			<div class="header">
-				<h1>📅 Seguimiento de Hábitos</h1>
-				<div class="month-nav">
-					<button
-						class="nav-btn"
-						onclick="changeMonth(-1)">
-						‹
-					</button>
-					<div
-						class="current-month"
-						id="currentMonth"></div>
-					<button
-						class="nav-btn"
-						onclick="changeMonth(1)">
-						›
-					</button>
-				</div>
-			</div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iniciar Sesión</title>
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --card-bg: #ffffff;
+      --text-color: #2d3748;
+      --accent: #4a90e2;
+    }
 
-			<div class="habits-config">
-				<div class="habits-title">Configura tus 3 hábitos</div>
-				<div class="habits-list">
-					<div class="habit-item">
-						<input
-							type="text"
-							class="habit-input"
-							id="habit1"
-							placeholder="Ej: Ejercicio diario"
-							value="Ejercicio diario" />
-					</div>
-					<div class="habit-item">
-						<input
-							type="text"
-							class="habit-input"
-							id="habit2"
-							placeholder="Ej: Leer 30 minutos"
-							value="Leer 30 minutos" />
-					</div>
-					<div class="habit-item">
-						<input
-							type="text"
-							class="habit-input"
-							id="habit3"
-							placeholder="Ej: Meditar"
-							value="Meditar" />
-					</div>
-				</div>
-			</div>
+    [data-theme="dark"] {
+      --bg-gradient: linear-gradient(135deg, #1a1a1a 0%, #0f2027 100%);
+      --card-bg: #1e293b;
+      --text-color: #f1f5f9;
+      --accent: #38bdf8;
+    }
 
-			<div class="calendar-container">
-				<div
-					class="calendar-grid"
-					id="calendar">
-					<!-- El calendario se genera dinámicamente -->
-				</div>
-			</div>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: var(--bg-gradient);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--text-color);
+    }
 
-			<div class="stats">
-				<div class="stat-card">
-					<div
-						class="stat-number"
-						id="totalDays">
-						0
-					</div>
-					<div class="stat-label">Días del mes</div>
-				</div>
-				<div class="stat-card">
-					<div
-						class="stat-number"
-						id="completedHabits">
-						0
-					</div>
-					<div class="stat-label">Hábitos completados</div>
-				</div>
-				<div class="stat-card">
-					<div
-						class="stat-number"
-						id="successRate">
-						0%
-					</div>
-					<div class="stat-label">Tasa de éxito</div>
-				</div>
-				<div class="stat-card">
-					<div
-						class="stat-number"
-						id="completedDays">
-						0
-					</div>
-					<div class="stat-label">Días con al menos un hábito</div>
-				</div>
-			</div>
-		</div>
+    .login-box {
+      background: var(--card-bg);
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      width: 100%;
+      max-width: 360px;
+      text-align: center;
+    }
 
-		<div
-			class="modal"
-			id="photoModal">
-			<div class="modal-content">
-				<button
-					class="close-modal"
-					onclick="closeModal()">
-					×
-				</button>
-				<img
-					id="modalImage"
-					src="#"
-					alt="Evidencia" />
-			</div>
-		</div>
+    h1 {
+      margin-bottom: 30px;
+      font-weight: 500;
+      color: var(--text-color);
+    }
 
-		<div
-			class="photo-actions-modal"
-			id="photoActionsModal">
-			<div class="photo-actions-content">
-				<div class="photo-actions-title">Gestionar Evidencias</div>
-				<div
-					class="photo-actions-buttons"
-					id="photoActionsButtons">
-					<!-- Botones se generan dinámicamente -->
-				</div>
-			</div>
-		</div>
+    label {
+      display: block;
+      text-align: left;
+      margin-bottom: 6px;
+      font-size: 14px;
+      font-weight: 500;
+    }
 
-		<script src="main.js"></script>
-	</body>
+    input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      font-size: 14px;
+      background: #fff;
+      transition: border-color 0.2s;
+    }
+
+    [data-theme="dark"] input {
+      background: #334155;
+      border: 1px solid #475569;
+      color: #f8fafc;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      background: var(--accent);
+      color: white;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    .alert {
+      margin-bottom: 15px;
+      border-radius: 6px;
+      padding: 10px;
+      font-size: 14px;
+      display: none;
+    }
+
+    .alert.show { display: block; }
+    .alert-error { background: #fee2e2; color: #991b1b; }
+    .alert-success { background: #dcfce7; color: #166534; }
+
+    .theme-toggle {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(255,255,255,0.3);
+      border: none;
+      border-radius: 6px;
+      color: white;
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+
+    .footer {
+      margin-top: 15px;
+      font-size: 12px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+
+  <div class="login-box">
+    <h1>Iniciar Sesión</h1>
+    <div id="alert" class="alert"></div>
+    <form id="loginForm">
+      <label for="username">Usuario</label>
+      <input id="username" type="text" placeholder="Ingresa tu usuario" required>
+
+      <label for="code">Código de acceso</label>
+      <input id="code" type="password" placeholder="Ingresa tu código" required>
+
+      <button type="submit" id="loginBtn" class="btn">Ingresar</button>
+    </form>
+    <div class="footer">Sistema de autenticación seguro</div>
+  </div>
+
+  <script>
+    const WORKER_URL = 'https://habits-login.anthonyuribe3456.workers.dev/';
+
+    // aplicar tema guardado
+    document.documentElement.setAttribute(
+      "data-theme",
+      localStorage.getItem("theme") || "light"
+    );
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute("data-theme") || "light";
+      const next = current === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+    }
+
+    const form = document.getElementById('loginForm');
+    const alertBox = document.getElementById('alert');
+    const loginBtn = document.getElementById('loginBtn');
+
+    function showAlert(msg, type) {
+      alertBox.textContent = msg;
+      alertBox.className = `alert alert-${type} show`;
+      setTimeout(() => alertBox.classList.remove('show'), 5000);
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      const code = document.getElementById('code').value.trim();
+
+      if (!username || !code) {
+        showAlert('Completa todos los campos.', 'error');
+        return;
+      }
+
+      loginBtn.disabled = true;
+      loginBtn.textContent = 'Verificando...';
+
+      try {
+        const res = await fetch(WORKER_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ code })
+        });
+        const data = await res.json();
+
+        if (res.status === 201) {
+          showAlert('¡Acceso concedido! Redirigiendo...', 'success');
+          localStorage.setItem('username', username);
+          localStorage.setItem('isLoggedIn', 'true');
+          setTimeout(() => {
+            window.location.href = data.redirectUrl || '/app/app.html';
+          }, 1000);
+        } else if (res.status === 202) {
+          showAlert('Código incorrecto. Intenta de nuevo.', 'error');
+        } else {
+          showAlert('Error al iniciar sesión.', 'error');
+        }
+      } catch (err) {
+        console.error(err);
+        showAlert('Error de conexión con el servidor.', 'error');
+      } finally {
+        loginBtn.disabled = false;
+        loginBtn.textContent = 'Ingresar';
+      }
+    });
+  </script>
+</body>
 </html>

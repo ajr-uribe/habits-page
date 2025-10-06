@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seguimiento de Hábitos - Calendario</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <script>
+      // Verificar login (opcional, borra si no lo quieres)
+      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+      if (!isLoggedIn) {
+        window.location.href = "/index.html";
+      }
+
+      // aplicar tema guardado (igual que en index.html)
+      document.documentElement.setAttribute(
+        "data-theme",
+        localStorage.getItem("theme") || "light"
+      );
+
+      function toggleTheme() {
+        const current = document.documentElement.getAttribute("data-theme") || "light";
+        const next = current === "light" ? "dark" : "light";
+        document.documentElement.setAttribute("data-theme", next);
+        localStorage.setItem("theme", next);
+      }
+    </script>
+
+    <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+
+    <div class="container">
+      <div class="header">
+        <h1>📅 Seguimiento de Hábitos</h1>
+        <div class="month-nav">
+          <button class="nav-btn" onclick="changeMonth(-1)">‹</button>
+          <div class="current-month" id="currentMonth"></div>
+          <button class="nav-btn" onclick="changeMonth(1)">›</button>
+        </div>
+      </div>
+
+      <div class="habits-config">
+        <div class="habits-title">Configura tus 3 hábitos</div>
+        <div class="habits-list">
+          <div class="habit-item">
+            <input type="text" class="habit-input" id="habit1" placeholder="Ej: Ejercicio diario" value="Ejercicio diario" />
+          </div>
+          <div class="habit-item">
+            <input type="text" class="habit-input" id="habit2" placeholder="Ej: Leer 30 minutos" value="Leer 30 minutos" />
+          </div>
+          <div class="habit-item">
+            <input type="text" class="habit-input" id="habit3" placeholder="Ej: Meditar" value="Meditar" />
+          </div>
+        </div>
+      </div>
+
+      <div class="calendar-container">
+        <div class="calendar-grid" id="calendar">
+          <!-- El calendario se genera dinámicamente -->
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-number" id="totalDays">0</div>
+          <div class="stat-label">Días del mes</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="completedHabits">0</div>
+          <div class="stat-label">Hábitos completados</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="successRate">0%</div>
+          <div class="stat-label">Tasa de éxito</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="completedDays">0</div>
+          <div class="stat-label">Días con al menos un hábito</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="photoModal">
+      <div class="modal-content">
+        <button class="close-modal" onclick="closeModal()">×</button>
+        <img id="modalImage" src="#" alt="Evidencia" />
+      </div>
+    </div>
+
+    <div class="photo-actions-modal" id="photoActionsModal">
+      <div class="photo-actions-content">
+        <div class="photo-actions-title">Gestionar Evidencias</div>
+        <div class="photo-actions-buttons" id="photoActionsButtons">
+          <!-- Botones se generan dinámicamente -->
+        </div>
+      </div>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>
