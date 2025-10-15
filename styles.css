@@ -178,6 +178,7 @@ body {
 /* ====== Calendario ====== */
 .calendar-container {
 	padding: 30px;
+	overflow-x: auto;
 }
 
 .calendar-grid {
@@ -187,6 +188,7 @@ body {
 	background: var(--border-color);
 	border-radius: 12px;
 	overflow: hidden;
+	min-width: 800px;
 }
 
 .calendar-header {
@@ -211,8 +213,17 @@ body {
 .day-number {
 	font-weight: 600;
 	color: var(--text-color);
-	margin-bottom: 8px;
+	margin-bottom: 2px;
 	font-size: 0.9rem;
+	line-height: 1.2;
+}
+
+.day-name {
+	font-size: 0.7rem;
+	color: var(--muted-text);
+	font-weight: 400;
+	margin-bottom: 6px;
+	line-height: 1.1;
 }
 
 .habit-checks {
@@ -324,52 +335,6 @@ body {
 	height: 30px;
 	cursor: pointer;
 	font-size: 1.2rem;
-}
-
-/* ====== Responsive ====== */
-@media (max-width: 768px) {
-	body {
-		padding: 10px;
-	}
-
-	.header h1 {
-		font-size: 1.8rem;
-	}
-
-	.current-month {
-		font-size: 1.2rem;
-		min-width: 150px;
-	}
-
-	.calendar-grid {
-		grid-template-columns: repeat(8, 1fr);
-		font-size: 0.75rem;
-		gap: 2px;
-	}
-
-	.calendar-day {
-		min-height: 80px;
-		padding: 4px 2px;
-	}
-
-	.day-number {
-		font-size: 0.8rem;
-	}
-}
-
-@media (max-width: 480px) {
-	.header h1 {
-		font-size: 1.5rem;
-	}
-
-	.current-month {
-		font-size: 1rem;
-	}
-
-	.nav-btn {
-		padding: 8px 12px;
-		font-size: 1rem;
-	}
 }
 
 /* ====== Evidencias/Fotos ====== */
@@ -519,16 +484,151 @@ body {
 	background: #fecaca;
 }
 
-/* ====== Responsive para fotos ====== */
+/* ====== Responsive ====== */
+@media (max-width: 1024px) {
+	.habits-list {
+		grid-template-columns: 1fr;
+	}
+}
+
 @media (max-width: 768px) {
+	body {
+		padding: 10px;
+	}
+
+	.header h1 {
+		font-size: 1.8rem;
+	}
+
+	.header {
+		padding: 20px;
+	}
+
+	.current-month {
+		font-size: 1.2rem;
+		min-width: 150px;
+	}
+
+	.calendar-container {
+		padding: 15px;
+		padding-bottom: 20px;
+	}
+
+	.calendar-grid {
+		min-width: 600px;
+		font-size: 0.75rem;
+	}
+
+	.calendar-header {
+		padding: 10px 4px;
+		font-size: 0.75rem;
+	}
+
+	.calendar-day {
+		min-height: 90px;
+		padding: 6px 4px;
+	}
+
+	.day-number {
+		font-size: 0.85rem;
+		margin-bottom: 1px;
+	}
+
+	.day-name {
+		font-size: 0.65rem;
+		margin-bottom: 4px;
+	}
+
+	.habit-check {
+		font-size: 0.7rem;
+	}
+
+	.habit-checkbox {
+		width: 14px;
+		height: 14px;
+	}
+
+	.habit-checkbox.checked::after {
+		font-size: 10px;
+		left: 1px;
+	}
+
 	.photo-btn,
 	.photo-preview {
 		width: 28px;
 		height: 28px;
 	}
+
+	.stats {
+		grid-template-columns: repeat(2, 1fr);
+		padding: 15px;
+		gap: 15px;
+	}
+
+	.stat-number {
+		font-size: 1.5rem;
+	}
+
+	.habits-config {
+		padding: 20px 15px;
+	}
 }
 
 @media (max-width: 480px) {
+	body {
+		padding: 5px;
+	}
+
+	.header h1 {
+		font-size: 1.4rem;
+	}
+
+	.header {
+		padding: 15px;
+	}
+
+	.current-month {
+		font-size: 1rem;
+		min-width: 120px;
+	}
+
+	.nav-btn {
+		padding: 8px 12px;
+		font-size: 1rem;
+	}
+
+	.calendar-container {
+		padding: 10px;
+		padding-bottom: 15px;
+	}
+
+	.calendar-grid {
+		min-width: 500px;
+		font-size: 0.7rem;
+	}
+
+	.calendar-header {
+		padding: 8px 2px;
+		font-size: 0.7rem;
+	}
+
+	.calendar-day {
+		min-height: 80px;
+		padding: 4px 2px;
+	}
+
+	.day-number {
+		font-size: 0.8rem;
+	}
+
+	.day-name {
+		font-size: 0.6rem;
+	}
+
+	.habit-check span {
+		display: none;
+	}
+
 	.photo-btn,
 	.photo-preview {
 		width: 24px;
@@ -538,9 +638,31 @@ body {
 
 	.photo-actions-content {
 		max-width: 95%;
+		padding: 20px;
 	}
 
-	.habit-check span {
-		display: none;
+	.day-completion {
+		font-size: 0.65rem;
+	}
+}
+
+/* Ajuste para scroll horizontal en móvil */
+@media (max-width: 768px) {
+	.calendar-container::-webkit-scrollbar {
+		height: 6px;
+	}
+
+	.calendar-container::-webkit-scrollbar-track {
+		background: var(--muted-bg);
+		border-radius: 10px;
+	}
+
+	.calendar-container::-webkit-scrollbar-thumb {
+		background: var(--accent);
+		border-radius: 10px;
+	}
+
+	.calendar-container::-webkit-scrollbar-thumb:hover {
+		background: var(--border-color);
 	}
 }

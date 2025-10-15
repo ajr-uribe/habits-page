@@ -85,13 +85,23 @@ function generateCalendar() {
 	const month = currentDate.getMonth();
 	const daysInMonth = new Date(year, month + 1, 0).getDate();
 
+	// Nombres de los días de la semana
+	const diasSemana = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
+
 	for (let day = 1; day <= daysInMonth; day++) {
 		const dateKey = `${year}-${month + 1}-${day}`;
+
+		// Obtener el día de la semana
+		const fecha = new Date(year, month, day);
+		const diaSemana = diasSemana[fecha.getDay()];
 
 		// Columna del día
 		const dayDiv = document.createElement("div");
 		dayDiv.className = "calendar-day";
-		dayDiv.innerHTML = `<div class="day-number">${day}</div>`;
+		dayDiv.innerHTML = `
+			<div class="day-number">${day}</div>
+			<div class="day-name">${diaSemana}</div>
+		`;
 
 		// Añadir indicador de completado para el día
 		const completedCount = getCompletedHabitsCount(dateKey);
